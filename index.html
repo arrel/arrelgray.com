@@ -76,9 +76,11 @@
       document.getElementsByTagName('div')[0].innerHTML = html;
     }
 
+    var folks = ['Robert_Noyce','George_Westinghouse','William_Redington_Hewlett','Wright_brothers'];
+    var folk = folks[Math.floor(Math.random() * folks.length)];
     window.makeItGo = function(data) { console.log(data); displayStr(data.parse.text['*']); }
     var script = document.createElement('script');
-    script.src = "http://en.wikipedia.org/w/api.php?action=parse&page=George_Westinghouse&format=json&prop=text&callback=makeItGo";;
+    script.src = "http://en.wikipedia.org/w/api.php?action=parse&page="+folk+"&format=json&prop=text&callback=makeItGo";;
     document.body.appendChild(script);
   })();
   </script>
