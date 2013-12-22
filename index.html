@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Arrel Gray</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
+  <link href="http://fonts.googleapis.com/css?family=Abril+Fatface|Lato:400,700" rel="stylesheet" type="text/css">
+  <style>
+    * { margin: 0; padding: 0; font-size: 100%; }
+    body { line-height: 1; font-family: 'Lato', sans-serif; color: #333; background-color: #FCFCFC; font-size: 16px; }
+    p,h1,h2,h3,h4,h5,h6 { border-color: #EEE; display: block; float: left; padding: 0; margin: 0; width: 50px; text-align: center; line-height: 50px; border-width: 1px; border-style: dashed; text-transform: uppercase; border-bottom: none; border-left: none; }
+    p { color: #666; font-size: 40px; font-family: 'Abril Fatface', serif; }
+    p.small { font-size: 24px; }
+    h1 { color: #03738E; }
+    h2 { color: #F1B703; }
+    h3 { color: #F58602; }
+    h4 { color: #F15B07; }
+    h5 { color: #D92D01; }
+    h6 { color: #999; }
+  </style>
+</head>
+<body>
+  <div></div>
+  <script type="text/javascript">
+  (function(){
+    var chars = 0;
+    var cols = Math.floor(window.innerWidth / 51);
+    var rows = Math.ceil(window.innerHeight / 51);
+    console.log(cols);
+    var displayStr = function(str) {
+      var indx;
+      var html = '';
+      var paused = false;
+      for (var i = 0, len = str.length; i < len; i++) {
+        var ch = str.charAt(i);
+        if (paused) {
+          paused = (ch != '>');
+          continue;
+        } else if (ch == '<') {
+          paused = true;
+          continue;
+        }
+        paused = false;
+
+        if (chars == cols * 5 - 1|| chars == cols * 5) {
+          substr = "Arrel Gray";
+          html += "<h1>&nbsp;</h1>";
+          for (var j = 0, sublen = substr.length; j < sublen; j++) {
+            html += "<p>"+substr.charAt(j)+"</p>";
+          }
+          html += "<h1>&nbsp;</h1>";
+          chars += substr.length + 2;
+        }
+
+        if (chars == cols * 6 - 1|| chars == cols * 6) {
+          substr = "Co-Founder";
+          html += "<h1>&nbsp;</h1>";
+          for (var j = 0, sublen = substr.length; j < sublen; j++) {
+            html += "<p class='small'>"+substr.charAt(j)+"</p>";
+          }
+          html += "<h1>&nbsp;</h1>";
+          chars += substr.length + 2;
+        }
+
+        if (' ' == ch || "\n" == ch) continue;
+        indx = 1 + Math.floor(Math.random()*6);
+        // if (indx > 6)
+        if (Math.random() > 0.6) {
+          html += "<h1>&nbsp;</h1>";
+          chars++;
+        }
+        // else
+        html += "<h"+indx+">"+ch+"</h"+indx+">";
+        if (++chars > rows * cols - 1) break;
+      }
+      document.getElementsByTagName('div')[0].innerHTML = html;
+    }
+
+    window.makeItGo = function(data) { console.log(data); displayStr(data.parse.text['*']); }
+    var script = document.createElement('script');
+    script.src = "http://en.wikipedia.org/w/api.php?action=parse&page=George_Westinghouse&format=json&prop=text&callback=makeItGo";;
+    document.body.appendChild(script);
+  })();
+  </script>
+</body>
+</html>
