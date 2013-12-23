@@ -26,11 +26,17 @@
     var chars = 0;
     var cols = Math.floor(window.innerWidth / 51);
     var rows = Math.ceil(window.innerHeight / 51);
-    console.log(cols);
+    if (rows < 12) rows = 12;
+    var messages = {};
+    messages[cols * 5] = {m:"Arrel Gray"};
+    messages[cols * 6] = {m:"Co-Founder",c:"small"}
+    messages[cols * 7] = {m:"Soldsie",c:"small"}
+
     var displayStr = function(str) {
       var indx;
       var html = '';
       var paused = false;
+      var msg;
       for (var i = 0, len = str.length; i < len; i++) {
         var ch = str.charAt(i);
         if (paused) {
@@ -42,24 +48,15 @@
         }
         paused = false;
 
-        if (chars == cols * 5 - 1|| chars == cols * 5) {
-          substr = "Arrel Gray";
+        if (msg = messages[chars - 1] || messages[chars]) {
           html += "<h1>&nbsp;</h1>";
-          for (var j = 0, sublen = substr.length; j < sublen; j++) {
-            html += "<p>"+substr.charAt(j)+"</p>";
+          for (var j = 0, sublen = msg.m.length; j < sublen; j++) {
+            var c = msg.c ? " class=\""+msg.c+"\"" : ""
+            html += "<p"+c+">"+msg.m.charAt(j)+"</p>";
           }
           html += "<h1>&nbsp;</h1>";
-          chars += substr.length + 2;
-        }
-
-        if (chars == cols * 6 - 1|| chars == cols * 6) {
-          substr = "Co-Founder";
-          html += "<h1>&nbsp;</h1>";
-          for (var j = 0, sublen = substr.length; j < sublen; j++) {
-            html += "<p class='small'>"+substr.charAt(j)+"</p>";
-          }
-          html += "<h1>&nbsp;</h1>";
-          chars += substr.length + 2;
+          chars += msg.m.length + 2;
+          msg = undefined;
         }
 
         if (' ' == ch || "\n" == ch) continue;
