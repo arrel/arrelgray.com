@@ -54,8 +54,7 @@
             var c = msg.c ? " class=\""+msg.c+"\"" : ""
             html += "<p"+c+">"+msg.m.charAt(j)+"</p>";
           }
-          html += "<h1>&nbsp;</h1>";
-          chars += msg.m.length + 2;
+          chars += msg.m.length + 1;
           msg = undefined;
         }
 
@@ -73,7 +72,7 @@
       document.getElementsByTagName('div')[0].innerHTML = html;
     }
 
-    var folks = ['Robert_Noyce','George_Westinghouse','William_Redington_Hewlett','Wright_brothers'];
+    var folks = ['Robert_Noyce','George_Westinghouse','William_Redington_Hewlett','Wright_brothers','Alan_Kay'];
     var folk = folks[Math.floor(Math.random() * folks.length)];
     window.makeItGo = function(data) { console.log(data); displayStr(data.parse.text['*']); }
     var script = document.createElement('script');
